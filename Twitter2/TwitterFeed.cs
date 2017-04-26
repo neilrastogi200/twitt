@@ -66,9 +66,10 @@ namespace Twitter2
             return user;
         }
 
-        public void FollowUser(string userName)
+        public void FollowUser(string userName, string follower)
         {
-            if()
+            var follow = _userRepository.GetUsers(userName);
+            var following = _userRepository.GetUsers(follower);
         }
 
         public string ReadCommand(string userName)

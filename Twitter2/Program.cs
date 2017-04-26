@@ -23,7 +23,7 @@ namespace Twitter2
 
             if (parameters.Command == "follows".ToLower())
             {
-                twitterFeed.FollowUser(parameters.UserName);
+                twitterFeed.FollowUser(parameters.UserName, parameters.Mesage);
             }
         }
     }
