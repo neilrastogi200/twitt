@@ -1,4 +1,4 @@
-﻿namespace Twitter2
+﻿namespace Twitter2.Repository
 {
     public interface IMessageRepository
     {

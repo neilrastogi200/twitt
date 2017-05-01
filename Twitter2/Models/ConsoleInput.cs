@@ -7,7 +7,5 @@ namespace Twitter2
         public string Command { get; set; }
 
         public string Mesage { get; set; }
-
-        public string Follower { get; set; }
     }
 }

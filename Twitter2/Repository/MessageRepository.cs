@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Twitter2
+namespace Twitter2.Repository
 {
     public class MessageRepository : IMessageRepository
     {
