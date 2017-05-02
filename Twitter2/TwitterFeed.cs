@@ -143,21 +143,29 @@ namespace Twitter2
                 throw new ArgumentException(nameof(userName), "bbbb");
             }
 
+            var currentUserMessages = user.Messages.Select(x => new { user.UserName, Message = x }).ToList();
+
             if (user.Following != null)
             {
-                user.Following.Select(x => x.Messages);
-
-
-                      var wallUserIds = new List<Guid>(user.Following.Select(x => x.Id));
-                wallUserIds.Add(user.Id);
-                var messages = (_messageRepository.)
-                    .Join(wallUserIds, l => l, r => r, (l, r) => l)
-                    .OrderBy(x => x.);
+                foreach (var item in user.Following)
+                {
+                    foreach (var message in item.Messages)
+                    {
+                        currentUserMessages.Add(new { item.UserName, Message = message });
+                    }
+                }
             }
 
-          
+            foreach (var message in currentUserMessages)
+            {
+                Console.WriteLine("{0} - {1} ({2} minutes ago)",
+                    message.UserName,
+                    message.Message.Content,
+                    (DateTime.UtcNow - message.Message.DateTime).Minutes);
 
-            return false;
+            }
+
+            return true;
         }
     }
 }

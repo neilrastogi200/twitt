@@ -42,7 +42,7 @@ namespace Twitter2.Commands
         {
             var parameters = _parseCommand.ParsingInput(element);
 
-            if (!string.IsNullOrEmpty(parameters.UserName))
+            if (!string.IsNullOrEmpty(parameters.UserName) && string.IsNullOrEmpty(parameters.Command))
             {
                 return parameters;
             }

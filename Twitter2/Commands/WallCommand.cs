@@ -29,7 +29,7 @@ namespace Twitter2.Commands
 
             if (parameters != null)
             {
-                _twitterFeed.
+                _twitterFeed.ShowWall(parameters.UserName);
                 return true;
             }
 
