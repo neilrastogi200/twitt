@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Twitter2.Models;
 
 namespace Twitter2.Infrastructure
 {

@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Twitter2.Infrastructure;
+using Twitter2.Models;
+using Twitter2.Services;
 
 namespace Twitter2.Commands
 {
     public class ReadCommand : ICommand
     {
-        private readonly ITwitterFeed _twitterFeed;
         private readonly IParseCommand _parseCommand;
+        private readonly ITwitterUserFeedService _twitterUserFeedService;
 
-        public ReadCommand(ITwitterFeed twitterFeed, IParseCommand parseCommand)
+        public ReadCommand(ITwitterUserFeedService twitterUserFeedService, IParseCommand parseCommand)
         {
-            _twitterFeed = twitterFeed;
+            _twitterUserFeedService = twitterUserFeedService;
             _parseCommand = parseCommand;
         }
 
         public bool ExecuteCommand(string data)
         {
-            if (string.IsNullOrEmpty(data))
+            if (string.IsNullOrWhiteSpace(data))
             {
                 throw new ArgumentException("The argument data is null or empty");
             }
@@ -29,16 +27,15 @@ namespace Twitter2.Commands
 
             if (parameters != null)
             {
-                _twitterFeed.ReadMessage(parameters.UserName);
+                _twitterUserFeedService.ReadMessage(parameters.UserName);
                 return true;
             }
 
-            
 
             return false;
         }
 
-        public ConsoleInput CanHandle(string element)
+        private ConsoleInput CanHandle(string element)
         {
             var parameters = _parseCommand.ParsingInput(element);
 

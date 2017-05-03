@@ -1,4 +1,6 @@
-﻿namespace Twitter2.Repository
+﻿using Twitter2.Models;
+
+namespace Twitter2.Repository
 {
     public interface IUserRepository
     {

@@ -1,4 +1,6 @@
-﻿namespace Twitter2.Infrastructure
+﻿using Twitter2.Models;
+
+namespace Twitter2.Infrastructure
 {
     public interface IParseCommand
     {

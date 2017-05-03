@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Twitter2
+namespace Twitter2.Models
 {
     public class User
     {

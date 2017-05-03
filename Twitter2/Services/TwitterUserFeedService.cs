@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Twitter2.Infrastructure;
+using Twitter2.Models;
 using Twitter2.Repository;
 
-namespace Twitter2
+namespace Twitter2.Services
 {
-    public class TwitterFeed : ITwitterFeed
+    public class TwitterUserFeedService : ITwitterUserFeedService
     {
         private readonly IMessageRepository _messageRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IConsole _console;
 
-        public TwitterFeed(IMessageRepository messageRepository, IUserRepository userRepository)
+        public TwitterUserFeedService(IMessageRepository messageRepository, IUserRepository userRepository, IConsole console)
         {
             _messageRepository = messageRepository;
             _userRepository = userRepository;
+            _console = console;
         }
 
         public void PublishMessage(string userName, string text)
@@ -119,7 +123,7 @@ namespace Twitter2
             string result = null;
             foreach (var message in user.Messages.OrderBy(x => x.DateTime))
             {
-                Console.WriteLine("{0} ({1} minutes ago)",
+                _console.WriteLine("{0} ({1} minutes ago)",
                     message.Content,
                     (DateTime.UtcNow - message.DateTime).Minutes);
             }
@@ -158,7 +162,7 @@ namespace Twitter2
 
             foreach (var message in currentUserMessages)
             {
-                Console.WriteLine("{0} - {1} ({2} minutes ago)",
+                _console.WriteLine("{0} - {1} ({2} minutes ago)",
                     message.UserName,
                     message.Message.Content,
                     (DateTime.UtcNow - message.Message.DateTime).Minutes);

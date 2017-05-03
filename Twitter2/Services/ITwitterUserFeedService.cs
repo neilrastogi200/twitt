@@ -1,6 +1,8 @@
-﻿namespace Twitter2
+﻿using Twitter2.Models;
+
+namespace Twitter2.Services
 {
-    public interface ITwitterFeed
+    public interface ITwitterUserFeedService
     {
         User CreateUser(string userName);
         bool FollowUser(string userName, string follower);

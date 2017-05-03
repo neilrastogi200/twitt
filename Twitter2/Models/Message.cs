@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Twitter2
+namespace Twitter2.Models
 {
     public class Message
     {

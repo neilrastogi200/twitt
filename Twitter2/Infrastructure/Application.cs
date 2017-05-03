@@ -1,14 +1,17 @@
 ﻿using System;
+using Twitter2.Commands;
 
 namespace Twitter2.Infrastructure
 {
     public class Application : IApplication
     {
         private readonly ICommandFactory _commandFactory;
+        private readonly IConsole _console;
 
-        public Application(ICommandFactory commandFactory)
+        public Application(ICommandFactory commandFactory, IConsole console)
         {
             _commandFactory = commandFactory;
+            _console = console;
         }
 
         public int Run()
@@ -21,8 +24,8 @@ namespace Twitter2.Infrastructure
                     var parameters = _commandFactory.Handle(command);
                 }
 
-                Console.Write("> ");
-                command = Console.ReadLine();
+                _console.Write("> ");
+                command = _console.ReadLine();
 
             }
 

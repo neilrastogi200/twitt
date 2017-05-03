@@ -1,4 +1,4 @@
-﻿namespace Twitter2
+﻿namespace Twitter2.Commands
 {
     public interface ICommandFactory
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Twitter2.Models;
 
 namespace Twitter2.Repository
 {
@@ -28,16 +29,12 @@ namespace Twitter2.Repository
         {
             if (item == null)
             {
-                throw new ArgumentNullException("This product does not exist");
+                throw new ArgumentNullException("This user does not exist");
             }
 
             var index = _users.Where(x => x.UserName == item.UserName);
 
-            //if (index == -1)
-            //{
-            //    return false;
-            //}
-
+         
             foreach (var updatedItem in _users)
             {
                 if (updatedItem.Id == item.Id)
