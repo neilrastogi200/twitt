@@ -23,19 +23,23 @@ namespace Twitter2.Commands
                 throw new ArgumentException("The argument data is null or empty");
             }
 
-            var parameters = CanHandle(data);
+            var parameters = CanHandleCommand(data);
 
             if (parameters != null)
             {
-                _twitterUserFeedService.ReadMessage(parameters.UserName);
-                return true;
+                var result =_twitterUserFeedService.ReadMessage(parameters.UserName);
+
+                if (result == null)
+                {
+                    return true;
+                }
             }
 
 
             return false;
         }
 
-        private ConsoleInput CanHandle(string element)
+        private ConsoleInput CanHandleCommand(string element)
         {
             var parameters = _parseCommand.ParsingInput(element);
 

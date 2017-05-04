@@ -9,11 +9,12 @@ namespace Twitter2.Services
 {
     public class TwitterUserFeedService : ITwitterUserFeedService
     {
+        private readonly IConsole _console;
         private readonly IMessageRepository _messageRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IConsole _console;
 
-        public TwitterUserFeedService(IMessageRepository messageRepository, IUserRepository userRepository, IConsole console)
+        public TwitterUserFeedService(IMessageRepository messageRepository, IUserRepository userRepository,
+            IConsole console)
         {
             _messageRepository = messageRepository;
             _userRepository = userRepository;
@@ -87,12 +88,10 @@ namespace Twitter2.Services
                 throw new ArgumentException("The users do not exist");
             }
 
-            // If follower already follows folowed do nothing
-            if (currentUser.Following != null && followingUser.Following.Any(x => x.UserName == follower))
+            if (currentUser.Following != null && currentUser.Following.Any(x => x.UserName == follower))
             {
                 return true;
             }
-
 
             if (currentUser.Following == null)
             {
@@ -120,7 +119,6 @@ namespace Twitter2.Services
                 throw new ArgumentException(nameof(user.Messages));
             }
 
-            string result = null;
             foreach (var message in user.Messages.OrderBy(x => x.DateTime))
             {
                 _console.WriteLine("{0} ({1} minutes ago)",
@@ -128,12 +126,7 @@ namespace Twitter2.Services
                     (DateTime.UtcNow - message.DateTime).Minutes);
             }
 
-            return result;
-        }
-
-        private void CreateMessage(Message message)
-        {
-            _messageRepository.CreateMessage(message);
+            return null;
         }
 
         public bool ShowWall(string userName)
@@ -147,7 +140,7 @@ namespace Twitter2.Services
                 throw new ArgumentException(nameof(userName), "bbbb");
             }
 
-            var currentUserMessages = user.Messages.Select(x => new { user.UserName, Message = x }).ToList();
+            var currentUserMessages = user.Messages.Select(x => new {user.UserName, Message = x}).ToList();
 
             if (user.Following != null)
             {
@@ -155,7 +148,7 @@ namespace Twitter2.Services
                 {
                     foreach (var message in item.Messages)
                     {
-                        currentUserMessages.Add(new { item.UserName, Message = message });
+                        currentUserMessages.Add(new {item.UserName, Message = message});
                     }
                 }
             }
@@ -166,10 +159,14 @@ namespace Twitter2.Services
                     message.UserName,
                     message.Message.Content,
                     (DateTime.UtcNow - message.Message.DateTime).Minutes);
-
             }
 
             return true;
+        }
+
+        private void CreateMessage(Message message)
+        {
+            _messageRepository.CreateMessage(message);
         }
     }
 }

@@ -22,7 +22,10 @@ namespace UnitTests
         {
             _mockParseCommand = new Mock<IParseCommand>();
             _mockTwitterUserFeedService = new Mock<ITwitterUserFeedService>();
-            _command = new List<ICommand>() { new WallCommand(_mockTwitterUserFeedService.Object, _mockParseCommand.Object) };
+            _command = new List<ICommand>
+            {
+                new WallCommand(_mockTwitterUserFeedService.Object, _mockParseCommand.Object)
+            };
             _commandFactory = new CommandFactory(_command);
         }
 
@@ -37,7 +40,7 @@ namespace UnitTests
             _mockTwitterUserFeedService.Setup(x => x.ShowWall("TestUser1")).Returns(true);
 
             //Act
-            var actualResult = _commandFactory.Handle(null);
+            var actualResult = _commandFactory.HandleCommand(null);
 
             //Assert
             Assert.AreEqual(false, actualResult);
@@ -59,7 +62,7 @@ namespace UnitTests
             _mockTwitterUserFeedService.Setup(x => x.ShowWall("TestUser1")).Returns(true);
 
             //Act
-            var actualResult = _commandFactory.Handle("TestUser1");
+            var actualResult = _commandFactory.HandleCommand("TestUser1");
 
             //Assert
             Assert.AreEqual(false, actualResult);
@@ -81,7 +84,7 @@ namespace UnitTests
             _mockTwitterUserFeedService.Setup(x => x.ShowWall("TestUser1")).Returns(true);
 
             //Act
-            var actualResult = _commandFactory.Handle("TestUser1 wall");
+            var actualResult = _commandFactory.HandleCommand("TestUser1 wall");
 
             //Assert
             Assert.AreEqual(true, actualResult);

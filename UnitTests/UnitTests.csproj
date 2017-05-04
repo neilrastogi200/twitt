@@ -59,7 +59,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FollowCommandTests.cs" />
-    <Compile Include="Mocks\UserRepositoryMock.cs" />
+    <Compile Include="ParseCommandUnitTests.cs" />
     <Compile Include="PostCommandTests.cs" />
     <Compile Include="ReadCommandTests.cs" />
     <Compile Include="TwitterUserFeedServiceTests.cs" />

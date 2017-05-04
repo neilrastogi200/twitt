@@ -2,6 +2,6 @@
 {
     public interface ICommandFactory
     {
-        bool Handle(string command);
+        bool HandleCommand(string command);
     }
 }

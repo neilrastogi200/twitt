@@ -21,7 +21,7 @@ namespace Twitter2.Infrastructure
             {
                 if (!string.IsNullOrWhiteSpace(command))
                 {
-                    var parameters = _commandFactory.Handle(command);
+                    var parameters = _commandFactory.HandleCommand(command);
                 }
 
                 _console.Write("> ");

@@ -11,7 +11,7 @@ namespace Twitter2.Commands
             _command = command;
         }
 
-        public bool Handle(string command)
+        public bool HandleCommand(string command)
         {
             bool ok = false;
 

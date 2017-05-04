@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using Twitter2.Commands;
@@ -13,7 +10,7 @@ using Twitter2.Services;
 namespace UnitTests
 {
     [TestFixture]
-    class PostCommandTests
+    internal class PostCommandTests
     {
         private Mock<IParseCommand> _mockParseCommand;
         private Mock<ITwitterUserFeedService> _mockTwitterUserFeedService;
@@ -25,12 +22,15 @@ namespace UnitTests
         {
             _mockParseCommand = new Mock<IParseCommand>();
             _mockTwitterUserFeedService = new Mock<ITwitterUserFeedService>();
-            _command = new List<ICommand>() {new PostCommand(_mockTwitterUserFeedService.Object, _mockParseCommand.Object)};
+            _command = new List<ICommand>
+            {
+                new PostCommand(_mockTwitterUserFeedService.Object, _mockParseCommand.Object)
+            };
             _commandFactory = new CommandFactory(_command);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof (ArgumentException))]
         public void ExecutePostCommand_When_Data_IsNull()
         {
             //Arrange
@@ -39,7 +39,7 @@ namespace UnitTests
             _mockTwitterUserFeedService.Setup(x => x.ShowWall("TestUser1")).Returns(true);
 
             //Act
-            var actualResult = _commandFactory.Handle(null);
+            var actualResult = _commandFactory.HandleCommand(null);
 
             //Assert
             Assert.AreEqual(false, actualResult);
@@ -61,7 +61,7 @@ namespace UnitTests
             _mockTwitterUserFeedService.Setup(x => x.ShowWall("TestUser1")).Returns(true);
 
             //Act
-            var actualResult = _commandFactory.Handle("TestUser1");
+            var actualResult = _commandFactory.HandleCommand("TestUser1");
 
             //Assert
             Assert.AreEqual(false, actualResult);
@@ -83,7 +83,7 @@ namespace UnitTests
             _mockTwitterUserFeedService.Setup(x => x.ShowWall("TestUser1")).Returns(true);
 
             //Act
-            var actualResult = _commandFactory.Handle("TestUser1 -> rrrrrrr");
+            var actualResult = _commandFactory.HandleCommand("TestUser1 -> rrrrrrr");
 
             //Assert
             Assert.AreEqual(true, actualResult);

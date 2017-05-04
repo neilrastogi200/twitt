@@ -24,7 +24,7 @@ namespace Twitter2.Commands
                 throw new ArgumentException("The argument data is null or empty");
             }
 
-            var parameters = CanHandle(data);
+            var parameters = CanHandleCommand(data);
 
             if (parameters != null)
             {
@@ -37,7 +37,7 @@ namespace Twitter2.Commands
         }
 
 
-        private ConsoleInput CanHandle(string element)
+        private ConsoleInput CanHandleCommand(string element)
         {
             var parameters = _parseCommand.ParsingInput(element);
 
